@@ -107,8 +107,10 @@ function App() {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
+    console.log('NewValue', newValue)
     setValue(newValue);
     const filtered = filterTickets(newValue, allTickets);
+    console.log('FILTER', filtered)
     setTickets(filtered);
   };
 
@@ -193,6 +195,7 @@ function App() {
             placeholder="Пошук за авіакомпанією, містом відправлення або призначення"
             value={value}
             onChange={handleSearchChange}
+            autoFocus
             onKeyDown={handleKeyDown}
             InputProps={{
               startAdornment: (
@@ -208,7 +211,9 @@ function App() {
                 }
               }
             }}
+            
           />
+          
         </Box>
       </Paper>
 
