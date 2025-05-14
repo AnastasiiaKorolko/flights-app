@@ -1,0 +1,74 @@
+/* .card {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.info span {
+  font-weight: bold;
+}
+
+.details {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.ticket-info {
+  margin-top: 20px;
+}
+
+.ticket-info p {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .info, .ticket-info p {
+    font-size: 16px;
+  }
+
+  .details {
+    font-size: 18px;
+  }
+} */
