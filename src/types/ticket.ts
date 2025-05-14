@@ -4,6 +4,11 @@ export interface Ticket {
   from: string,
   to: string,
   departureTime: number,
-  price: number,
-  flightNumber: number,
+  price?: number,
+  duration: string,
+  arrivalTime: number;
+  terminal?: string;
+  gate?: string;
+  flightNumber?: string;
+
 }

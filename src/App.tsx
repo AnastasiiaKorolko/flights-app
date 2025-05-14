@@ -1,12 +1,10 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Tick from './components/Ticket/Ticket';
-import Tickets from './components/Tickets';
 import { Ticket } from './types/ticket';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import About from './components/Abouts';
 import Contacts from './components/Contacts';
-import { debounce } from 'lodash';
 import {
   AppBar,
   Toolbar,
@@ -21,17 +19,14 @@ import {
   CardContent,
   Paper,
   alpha,
-  IconButton,
   Divider,
   Chip,
-  Avatar,
   InputAdornment
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import EventIcon from '@mui/icons-material/Event';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import DirectionsTransitIcon from '@mui/icons-material/DirectionsTransit';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -51,7 +46,7 @@ const airlineColors: Record<string, string> = {
   'American Airlines': '#0078D2',
 };
 
-const generatePastelColor = () => {
+const generatePastelColor = (): string => {
   const colorPalettes = {
     blue: ['#B3CDE0', '#6497B1', '#005B96', '#03396C', '#011F4B'],
     lightBlue: ['#A7DBE8', '#00BFFF', '#87CEFA', '#4682B4', '#5F9EA0'],
@@ -60,7 +55,7 @@ const generatePastelColor = () => {
     orange: ['#FFCC80', '#FFA726', '#FB8C00', '#F57C00', '#EF6C00'],
   };
 
-  const paletteNames = Object.keys(colorPalettes);
+  const paletteNames = Object.keys(colorPalettes) as Array<keyof typeof colorPalettes>;
   const randomPalette = colorPalettes[paletteNames[Math.floor(Math.random() * paletteNames.length)]];
 
   return randomPalette[Math.floor(Math.random() * randomPalette.length)];
@@ -96,7 +91,7 @@ function App() {
   const [activeSortButton, setActiveSortButton] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const filterTickets = (searchValue: string, ticketsToFilter: Ticket[]) => {
+  const filterTickets = (searchValue: string, ticketsToFilter: Ticket[]): Ticket[] => {
     if (!searchValue || !searchValue.trim()) {
       return ticketsToFilter;
     }
@@ -110,28 +105,13 @@ function App() {
     );
   };
 
-const debouncedFilter = useCallback(
-  debounce(
-    (searchValue: string, tickets: Ticket[], setTickets: React.Dispatch<React.SetStateAction<Ticket[]>>) => {
-      console.log("Debounced search with:", searchValue);
-      const filtered = filterTickets(searchValue, tickets);
-      setTickets(filtered);
-    },
-    300
-  ),
-  []
-);
-
-useEffect(() => {
-  console.log("Effect running with value:", value);
-  debouncedFilter(value, allTickets, setTickets);
-}, [value, allTickets, debouncedFilter]);
-
-useEffect(() => {
-  return () => {
-    debouncedFilter.cancel();
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setValue(newValue);
+    const filtered = filterTickets(newValue, allTickets);
+    setTickets(filtered);
   };
-}, [debouncedFilter]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -160,18 +140,12 @@ useEffect(() => {
         case 'departureTime':
           return new Date(a.departureTime).getTime() - new Date(b.departureTime).getTime();
         case 'price':
-          return a.price - b.price;
+          return (a.price ?? 0) - (b.price ?? 0);
         default:
           return 0;
       }
     });
     setTickets(sorted);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    console.log("Input changed:", newValue);
-    setValue(newValue);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -218,7 +192,7 @@ useEffect(() => {
             variant="outlined"
             placeholder="Пошук за авіакомпанією, містом відправлення або призначення"
             value={value}
-            onChange={handleInputChange}
+            onChange={handleSearchChange}
             onKeyDown={handleKeyDown}
             InputProps={{
               startAdornment: (
@@ -301,7 +275,7 @@ useEffect(() => {
             const airlineColor = getAirlineColor(ticket.airline);
             
             return (
-              <Grid item xs={12} sm={6} md={4} key={ticket.id}>
+              <Grid item xs={12} sm={6} md={4} key={ticket.id} component='div'>
                 <Card 
                   sx={{ 
                     display: 'flex', 

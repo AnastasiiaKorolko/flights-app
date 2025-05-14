@@ -1,185 +1,6 @@
-// import { Ticket } from '../../types/ticket';
-// import { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-// import s from './Ticket.module.css';
-
-// const Tick = () => {
-//   const { ticketId } = useParams();
-//   console.log('ID', ticketId);
-//   const [ticket, setTicket] = useState<Ticket | null>(null);
-
-//   useEffect(() => {
-//     if (ticketId) {
-//       const fet = async () => {
-//         try {
-//           const response = await fetch(
-//             `https://679d13f487618946e6544ccc.mockapi.io/testove/v1/flights/${ticketId}`
-//           );
-//           const data = await response.json();
-//           setTicket(data);
-//         } catch (err) {
-//           console.error('Error fetch', err);
-//         }
-//       };
-
-//       fet();
-//     }
-//   }, [ticketId]);
-
-//   return (
-//     <div className={s.card}>
-//       {ticket && (
-//         <div>
-//           <h1>{ticket.airline} Flight</h1>
-//           <div className={s.details}>
-//             {ticket.from} ➡️ {ticket.to}
-//           </div>
-//           <div className={s.info}>
-//             <span>Departure:</span> {ticket.departureTime}
-//           </div>
-//           <div className={s.info}>
-//             <span>Arrival:</span> {ticket.arrivalTime}
-//           </div>
-//           <div className={s.info}>
-//             <span>Gate:</span> {ticket.gate} | <span>Terminal:</span> {ticket.terminal}
-//           </div>
-//           <div className={s.info}>
-//             <span>Price:</span> ${ticket.price}
-//           </div>
-//           <div className={s.info}>
-//             <span>Tickets:</span> {ticket.tickets.total} (Remaining: {ticket.tickets.remaining})
-//           </div>
-//           <div className={s.ticketInfo}>
-//             <p>Flight ID: {ticket.id}</p>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Tick;
-
-
-// import { Ticket } from '../../types/ticket';
-// import { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-// import {
-//   Card,
-//   CardContent,
-//   Typography,
-//   Grid,
-//   Container,
-//   CircularProgress,
-//   Box,
-// } from '@mui/material';
-// import dayjs from 'dayjs';
-
-// const Tick = () => {
-//   const { ticketId } = useParams();
-//   console.log('ID', ticketId);
-//   const [ticket, setTicket] = useState<Ticket | null>(null);
-
-//   useEffect(() => {
-//     if (ticketId) {
-//       const fet = async () => {
-//         try {
-//           const response = await fetch(
-//             `https://679d13f487618946e6544ccc.mockapi.io/testove/v1/flights/${ticketId}`
-//           );
-//           const data = await response.json();
-//           setTicket(data);
-//         } catch (err) {
-//           console.error('Error fetch', err);
-//         }
-//       };
-
-//       fet();
-//     }
-//   }, [ticketId]);
-
-//   const formatTime = (timeString: string) => {
-//     return dayjs(timeString, 'HH:mm:ss').format('HH:mm'); // 24-годинний формат
-//   };
-
-//   if (!ticket) {
-//     return (
-//       <Box display="flex" justifyContent="center" mt={5}>
-//         <CircularProgress />
-//       </Box>
-//     );
-//   }
-
-//   return (
-//     <Container maxWidth="sm" sx={{ mt: 4 }}>
-//       <Card 
-//         elevation={6} 
-//         sx={{
-//           borderRadius: 3,
-//           padding: 3,
-//           bgcolor: 'primary.main',
-//           color: 'white',
-//         }}
-//       >
-//         <CardContent>
-//           <Typography variant="h4" align="center" gutterBottom>
-//             {ticket.airline} Flight
-//           </Typography>
-//           <Typography variant="h6" align="center" mb={2}>
-//             {ticket.from} ➡️ {ticket.to}
-//           </Typography>
-
-//           <Grid container spacing={2}>
-//             <Grid item xs={6}>
-//               <Typography variant="body1"><strong>Departure:</strong></Typography>
-//               <Typography variant="body2">{formatTime(ticket.departureTime)}</Typography>
-//             </Grid>
-//             <Grid item xs={6}>
-//               <Typography variant="body1"><strong>Arrival:</strong></Typography>
-//               <Typography variant="body2">{formatTime(ticket.arrivalTime)}</Typography>
-//             </Grid>
-
-//             <Grid item xs={6}>
-//               <Typography variant="body1"><strong>Gate:</strong></Typography>
-//               <Typography variant="body2">{ticket.gate}</Typography>
-//             </Grid>
-//             <Grid item xs={6}>
-//               <Typography variant="body1"><strong>Terminal:</strong></Typography>
-//               <Typography variant="body2">{ticket.terminal}</Typography>
-//             </Grid>
-
-//             <Grid item xs={12}>
-//               <Typography variant="body1"><strong>Price:</strong></Typography>
-//               <Typography variant="body2">${ticket.price}</Typography>
-//             </Grid>
-
-//             <Grid item xs={12}>
-//               <Typography variant="body1"><strong>Tickets:</strong></Typography>
-//               <Typography variant="body2">
-//                 {ticket.tickets.total} (Remaining: {ticket.tickets.remaining})
-//               </Typography>
-//             </Grid>
-
-//             <Grid item xs={12}>
-//               <Typography variant="body2" align="center" color="secondary">
-//                 Flight ID: {ticket.id}
-//               </Typography>
-//             </Grid>
-//           </Grid>
-//         </CardContent>
-//       </Card>
-//     </Container>
-//   );
-// };
-
-// export default Tick;
-
-
-
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
-  Card,
   CardContent,
   Typography,
   Grid,
@@ -193,7 +14,6 @@ import {
   alpha,
   Backdrop
 } from '@mui/material';
-import dayjs from 'dayjs';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
@@ -210,53 +30,68 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import WeekendIcon from '@mui/icons-material/Weekend';
 import BoltIcon from '@mui/icons-material/Bolt';
 
-// Додаткові кольори для авіакомпаній (можна змінити на власний смак)
-const airlineColors = {
-  'Default': '#3f51b5',
-  'Qatar Airways': '#5C0D34',
-  'Emirates': '#D71921',
-  'Lufthansa': '#05164D',
-  'British Airways': '#075AAA',
-  'Air France': '#002157',
-  'KLM': '#00A1DE',
-  'Turkish Airlines': '#E81932',
-  'Delta': '#E01933',
-  'United': '#002244',
-  'American Airlines': '#0078D2',
-};
+interface Ticket {
+  id: string;
+  airline: string;
+  from: string;
+  to: string;
+  departureTime: string;
+  arrivalTime: string;
+  terminal?: string;
+  gate?: string;
+  price?: number;
+  flightNumber?: string;
+  tickets?: {
+    remaining: number;
+    total: number;
+  };
+  duration?: string,
+}
 
-// Функція для отримання кольору авіакомпанії
-const getAirlineColor = (airline) => {
+// Додаткові кольори для авіакомпаній (можна змінити на власний смак)
+const getAirlineColor = (airline: string): string => {
+  const airlineColors: Record<string, string> = {
+    'Default': '#3f51b5',
+    'Qatar Airways': '#5C0D34',
+    'Emirates': '#D71921',
+    'Lufthansa': '#05164D',
+    'British Airways': '#075AAA',
+    'Air France': '#002157',
+    'KLM': '#00A1DE',
+    'Turkish Airlines': '#E81932',
+    'Delta': '#E01933',
+    'United': '#002244',
+    'American Airlines': '#0078D2',
+  };
   return airlineColors[airline] || airlineColors['Default'];
-};
+}
+
 
 // Функція для форматування дати та часу
-const formatDateTime = (dateTimeStr) => {
+const formatDateTime = (dateTimeStr: string): { date: string, time: string } => {
   const date = new Date(dateTimeStr);
   return {
     date: date.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: 'numeric' }),
     time: date.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' })
   };
-};
+}
 
 // Функція для розрахунку тривалості польоту
-const calculateDuration = (departureTime, arrivalTime) => {
+const calculateDuration = (departureTime: string, arrivalTime: string): string => {
   const departure = new Date(departureTime);
   const arrival = new Date(arrivalTime);
   const diffMinutes = Math.floor((arrival.getTime() - departure.getTime()) / 60000);
-  
   const hours = Math.floor(diffMinutes / 60);
   const minutes = diffMinutes % 60;
-  
   return `${hours}г ${minutes}хв`;
 };
 
 const Tick = () => {
-  const { ticketId } = useParams();
+  const { ticketId } = useParams<{ ticketId: string }>();
   const navigate = useNavigate();
-  const [ticket, setTicket] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [ticket, setTicket] = useState<Ticket | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     if (ticketId) {
@@ -487,7 +322,7 @@ const Tick = () => {
           </Typography>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} component='div'>
               <Paper 
                 elevation={1} 
                 sx={{ 
@@ -530,14 +365,14 @@ const Tick = () => {
                       Ціна
                     </Typography>
                     <Typography variant="body1" fontWeight="bold">
-                      {ticket.price} UAH
+                      {ticket?.price} UAH
                     </Typography>
                   </Box>
                 </Box>
               </Paper>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} component='div'>
               <Paper 
                 elevation={1} 
                 sx={{ 
